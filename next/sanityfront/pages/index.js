@@ -1129,7 +1129,7 @@ export async function getServerSideProps() {
     useCdn: false,
   });
 
-  const query = '*[_type == "blog"]';
+  const query = '*[_type == "blog"][0...3]';
   const blogs = await client.fetch(query);
   return {
     props: {
