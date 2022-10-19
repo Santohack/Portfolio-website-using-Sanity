@@ -1,12 +1,21 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import PortableText from "react-portable-text";
 import Script from "next/script";
 import blog from "../../../purple-curlew/schemas/blog";
 import { createClient } from "next-sanity";
+import imageUrlBuilder from "@sanity/image-url";
 import styles from "../styles/Home.module.css";
 
 export default function Home({ blogs }) {
+  const client = createClient({
+    projectId: "d9inkxl7",
+    dataset: "production",
+    useCdn: false,
+  });
+  const builder = imageUrlBuilder(client);
+  console.log(builder.image(blogs[0].blogImg).width(200).url());
   return (
     <>
       <>
@@ -21,7 +30,7 @@ export default function Home({ blogs }) {
             name="viewport"
           />
 
-          <title>Homepage | Atom Template</title>
+          <title>DWC | DevWebCity</title>
 
           <meta property="og:title" content="Homepage | Atom Template" />
 
@@ -117,65 +126,83 @@ export default function Home({ blogs }) {
                 <div className="hidden lg:block">
                   <ul className="flex items-center">
                     <li className="group pl-6">
-                      <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
-                        About
-                      </span>
+                      <a href="#about">
+                        {" "}
+                        <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
+                          About
+                        </span>
+                      </a>
 
                       <span className="block h-0.5 w-full bg-transparent group-hover:bg-yellow"></span>
                     </li>
 
                     <li className="group pl-6">
-                      <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
-                        Services
-                      </span>
+                      <a href="#services">
+                        <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
+                          Services
+                        </span>
+                      </a>
 
                       <span className="block h-0.5 w-full bg-transparent group-hover:bg-yellow"></span>
                     </li>
 
                     <li className="group pl-6">
-                      <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
-                        Portfolio
-                      </span>
+                      <a href="#portfolio">
+                        {" "}
+                        <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
+                          Portfolio
+                        </span>
+                      </a>
 
                       <span className="block h-0.5 w-full bg-transparent group-hover:bg-yellow"></span>
                     </li>
 
                     <li className="group pl-6">
-                      <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
-                        Clients
-                      </span>
+                      <a href="#clients">
+                        <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
+                          Clients
+                        </span>
+                      </a>
 
                       <span className="block h-0.5 w-full bg-transparent group-hover:bg-yellow"></span>
                     </li>
 
                     <li className="group pl-6">
-                      <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
-                        Work
-                      </span>
+                      <a href="#work">
+                        <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
+                          Work
+                        </span>
+                      </a>
 
                       <span className="block h-0.5 w-full bg-transparent group-hover:bg-yellow"></span>
                     </li>
 
                     <li className="group pl-6">
-                      <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
-                        Statistics
-                      </span>
+                      <a href="#statistics">
+                        <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
+                          Statistics
+                        </span>
+                      </a>
 
                       <span className="block h-0.5 w-full bg-transparent group-hover:bg-yellow"></span>
                     </li>
 
                     <li className="group pl-6">
-                      <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
-                        Blog
-                      </span>
+                      <a href="#blog">
+                        <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
+                          Blog
+                        </span>
+                      </a>
 
                       <span className="block h-0.5 w-full bg-transparent group-hover:bg-yellow"></span>
                     </li>
 
                     <li className="group pl-6">
-                      <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
-                        Contact
-                      </span>
+                      <a href="#contact">
+                        <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
+                          Contact
+                        </span>
+                      </a>
 
                       <span className="block h-0.5 w-full bg-transparent group-hover:bg-yellow"></span>
                     </li>
@@ -915,75 +942,43 @@ export default function Home({ blogs }) {
                     Check out my latest posts!
                   </h4>
                   <div className="mx-auto grid w-full grid-cols-1 gap-6 pt-12 sm:w-3/4 lg:w-full lg:grid-cols-3 xl:gap-10">
-                    <a href="/post" className="shadow">
-                      <div
-                        style={{
-                          backgroundImage: "url(/assets/img/post-01.png)",
-                        }}
-                        className="group relative h-72 bg-cover bg-center bg-no-repeat sm:h-84 lg:h-64 xl:h-72"
-                      >
-                        <span className="absolute inset-0 block bg-gradient-to-b from-blog-gradient-from to-blog-gradient-to bg-cover bg-center bg-no-repeat opacity-10 transition-opacity group-hover:opacity-50"></span>
-                        <span className="absolute right-0 bottom-0 mr-4 mb-4 block rounded-full border-2 border-white px-6 py-2 text-center font-body text-sm font-bold uppercase text-white md:text-base">
-                          Read More
-                        </span>
-                      </div>
-                      <div className="bg-white py-6 px-5 xl:py-8">
-                        <span className="block font-body text-lg font-semibold text-black">
-                          How to become a frontend developer
-                        </span>
-                        <span className="block pt-2 font-body text-grey-20">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua.
-                        </span>
-                      </div>
-                    </a>
-                    <a href="/post" className="shadow">
-                      <div
-                        style={{
-                          backgroundImage: "url(/assets/img/post-02.png)",
-                        }}
-                        className="group relative h-72 bg-cover bg-center bg-no-repeat sm:h-84 lg:h-64 xl:h-72"
-                      >
-                        <span className="absolute inset-0 block bg-gradient-to-b from-blog-gradient-from to-blog-gradient-to bg-cover bg-center bg-no-repeat opacity-10 transition-opacity group-hover:opacity-50"></span>
-                        <span className="absolute right-0 bottom-0 mr-4 mb-4 block rounded-full border-2 border-white px-6 py-2 text-center font-body text-sm font-bold uppercase text-white md:text-base">
-                          Read More
-                        </span>
-                      </div>
-                      <div className="bg-white py-6 px-5 xl:py-8">
-                        <span className="block font-body text-lg font-semibold text-black">
-                          My personal productivity system
-                        </span>
-                        <span className="block pt-2 font-body text-grey-20">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua.
-                        </span>
-                      </div>
-                    </a>
-                    <a href="/post" className="shadow">
-                      <div
-                        style={{
-                          backgroundImage: "url(/assets/img/post-03.png)",
-                        }}
-                        className="group relative h-72 bg-cover bg-center bg-no-repeat sm:h-84 lg:h-64 xl:h-72"
-                      >
-                        <span className="absolute inset-0 block bg-gradient-to-b from-blog-gradient-from to-blog-gradient-to bg-cover bg-center bg-no-repeat opacity-10 transition-opacity group-hover:opacity-50"></span>
-                        <span className="absolute right-0 bottom-0 mr-4 mb-4 block rounded-full border-2 border-white px-6 py-2 text-center font-body text-sm font-bold uppercase text-white md:text-base">
-                          Read More
-                        </span>
-                      </div>
-                      <div className="bg-white py-6 px-5 xl:py-8">
-                        <span className="block font-body text-lg font-semibold text-black">
-                          My year in review 2020
-                        </span>
-                        <span className="block pt-2 font-body text-grey-20">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua.
-                        </span>
-                      </div>
-                    </a>
+                    {blogs.map((item) => {
+                      return (
+                        <Link
+                          key={item.slug.current}
+                          href={"/blog/" + item.slug.current}
+                          className="shadow"
+                        >
+                          <div>
+                            {" "}
+                            <div
+                              style={{
+                                backgroundImage: `url(${
+                                  builder
+                                    .image(item.blogImg)
+                                    .width(200)
+                                    .url() || "/assets/img/post-02.png"
+                                })`,
+                              }}
+                              className="group relative h-72 bg-cover bg-center bg-no-repeat sm:h-84 lg:h-64 xl:h-72"
+                            >
+                              <span className="absolute inset-0 block bg-gradient-to-b from-blog-gradient-from to-blog-gradient-to bg-cover bg-center bg-no-repeat opacity-10 transition-opacity group-hover:opacity-50"></span>
+                              <span className="cursor-pointer absolute right-0 bottom-0 mr-4 mb-4 block rounded-full border-2 border-white px-6 py-2 text-center font-body text-sm font-bold uppercase text-white md:text-base">
+                                Read More
+                              </span>
+                            </div>
+                            <div className="bg-white py-6 px-5 xl:py-8">
+                              <span className="block font-body text-lg font-semibold text-black">
+                                {item.title}
+                              </span>
+                              <span className="block pt-2 font-body text-grey-20">
+                                {item.metaDisc}
+                              </span>
+                            </div>
+                          </div>
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
