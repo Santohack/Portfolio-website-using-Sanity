@@ -8,7 +8,7 @@ import { createClient } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import styles from "../styles/Home.module.css";
 
-export default function Home({ blogs, profile }) {
+export default function Home({ blogs, profile, about, skill, services }) {
   const client = createClient({
     projectId: "d9inkxl7",
     dataset: "production",
@@ -297,7 +297,7 @@ export default function Home({ blogs, profile }) {
                     </div>
                     <div className="pt-8 sm:pt-10 lg:pl-8 lg:pt-0">
                       <h1 className="text-center font-header text-4xl text-white sm:text-left sm:text-5xl md:text-6xl">
-                        Hello I'm {profile.title}
+                        Hello ,We Are {profile.title}
                       </h1>
                       <div className="flex flex-col justify-center pt-3 sm:flex-row sm:pt-5 lg:justify-start">
                         <div className="flex items-center justify-center pl-0 sm:justify-start md:pl-1">
@@ -335,20 +335,13 @@ export default function Home({ blogs, profile }) {
                 <div className="container flex flex-col items-center py-16 md:py-20 lg:flex-row">
                   <div className="w-full text-center sm:w-3/4 lg:w-3/5 lg:text-left">
                     <h2 className="font-header text-4xl font-semibold uppercase text-primary sm:text-5xl lg:text-6xl">
-                      Who am I?
+                      Who are We?
                     </h2>
                     <h4 className="pt-6 font-header text-xl font-medium text-black sm:text-2xl lg:text-3xl">
-                      I'm Christy Smith, a Web Designer & Photographer
+                      {about.title}
                     </h4>
                     <p className="pt-6 font-body leading-relaxed text-grey-20">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                      sint occaecat cupidatat non proident, sunt in culpa qui
-                      officia deserunt mollit anim id est laborum.
+                      {about.desc}
                     </p>
                     <div className="flex flex-col justify-center pt-6 sm:flex-row lg:justify-start">
                       <div className="flex items-center justify-center sm:justify-start">
@@ -360,261 +353,98 @@ export default function Home({ blogs, profile }) {
                         </div>
                       </div>
                       <div className="flex items-center justify-center pt-5 pl-2 sm:justify-start sm:pt-0">
-                        <a href="/">
+                        <a href={profile.fbLink}>
                           <i className="bx bxl-facebook-square text-2xl text-primary hover:text-yellow"></i>
                         </a>
-                        <a href="/" className="pl-4">
+                        <a href={profile.twLink} className="pl-4">
                           <i className="bx bxl-twitter text-2xl text-primary hover:text-yellow"></i>
                         </a>
                         <a href="/" className="pl-4">
                           <i className="bx bxl-dribbble text-2xl text-primary hover:text-yellow"></i>
                         </a>
-                        <a href="/" className="pl-4">
+                        <a href={profile.lkLink} className="pl-4">
                           <i className="bx bxl-linkedin text-2xl text-primary hover:text-yellow"></i>
                         </a>
-                        <a href="/" className="pl-4">
+                        <a href={profile.igLink} className="pl-4">
                           <i className="bx bxl-instagram text-2xl text-primary hover:text-yellow"></i>
                         </a>
                       </div>
                     </div>
                   </div>
                   <div className="w-full pl-0 pt-10 sm:w-3/4 lg:w-2/5 lg:pl-12 lg:pt-0">
-                    <div>
-                      <div className="flex items-end justify-between">
-                        <h4 className="font-body font-semibold uppercase text-black">
-                          HTML & CSS
-                        </h4>
-                        <h3 className="font-body text-3xl font-bold text-primary">
-                          85%
-                        </h3>
-                      </div>
-                      <div className="mt-2 h-3 w-full rounded-full bg-lila">
-                        <div
-                          className="h-3 rounded-full bg-primary"
-                          style={{ width: "85%" }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className="pt-6">
-                      <div className="flex items-end justify-between">
-                        <h4 className="font-body font-semibold uppercase text-black">
-                          Python
-                        </h4>
-                        <h3 className="font-body text-3xl font-bold text-primary">
-                          70%
-                        </h3>
-                      </div>
-                      <div className="mt-2 h-3 w-full rounded-full bg-lila">
-                        <div
-                          className="h-3 rounded-full bg-primary"
-                          style={{ width: "70%" }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className="pt-6">
-                      <div className="flex items-end justify-between">
-                        <h4 className="font-body font-semibold uppercase text-black">
-                          Javascript
-                        </h4>
-                        <h3 className="font-body text-3xl font-bold text-primary">
-                          98%
-                        </h3>
-                      </div>
-                      <div className="mt-2 h-3 w-full rounded-full bg-lila">
-                        <div
-                          className="h-3 rounded-full bg-primary"
-                          style={{ width: "98%" }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className="pt-6">
-                      <div className="flex items-end justify-between">
-                        <h4 className="font-body font-semibold uppercase text-black">
-                          Figma
-                        </h4>
-                        <h3 className="font-body text-3xl font-bold text-primary">
-                          91%
-                        </h3>
-                      </div>
-                      <div className="mt-2 h-3 w-full rounded-full bg-lila">
-                        <div
-                          className="h-3 rounded-full bg-primary"
-                          style={{ width: "91%" }}
-                        ></div>
-                      </div>
-                    </div>
+                    {skill.map((item) => {
+                      return (
+                        <div key={item.slug} className="pt-6">
+                          <div className="flex items-end justify-between">
+                            <h4 className="font-body font-semibold uppercase text-black">
+                              {item.title}
+                            </h4>
+                            <h3 className="font-body text-3xl font-bold text-primary">
+                              {item.efficiency}
+                            </h3>
+                          </div>
+                          <div className="mt-2 h-3 w-full rounded-full bg-lila">
+                            <div
+                              className="h-3 rounded-full bg-primary"
+                              style={{ width: `${item.per}` }}
+                            ></div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
 
               <div className="container py-16 md:py-20" id="services">
                 <h2 className="text-center font-header text-4xl font-semibold uppercase text-primary sm:text-5xl lg:text-6xl">
-                  Here's what I'm good at
+                  Here's what We're good at
                 </h2>
                 <h3 className="pt-6 text-center font-header text-xl font-medium text-black sm:text-2xl lg:text-3xl">
-                  These are the services Ioffer
+                  These are the services we offer
                 </h3>
 
                 <div className="grid grid-cols-1 gap-6 pt-10 sm:grid-cols-2 md:gap-10 md:pt-12 lg:grid-cols-3">
-                  <div className="group rounded px-8 py-12 shadow hover:bg-primary">
-                    <div className="mx-auto h-24 w-24 text-center xl:h-28 xl:w-28">
-                      <div className="hidden group-hover:block">
-                        <img
-                          src="/assets/img/icon-development-white.svg"
-                          alt="development icon"
-                        />
+                  {services.map((item) => {
+                    return (
+                      <div
+                        key={item.slug}
+                        className="group rounded px-8 py-12 shadow hover:bg-primary"
+                      >
+                        <div className="mx-auto h-24 w-24 text-center xl:h-28 xl:w-28">
+                          <div className="hidden group-hover:block">
+                            <img
+                              src={builder.image(item.image).width(200).url()}
+                              alt="development icon"
+                            />
+                          </div>
+                          <div className="block group-hover:hidden">
+                            <img
+                              src={builder.image(item.image).width(200).url()}
+                              alt="development icon"
+                            />
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <h3 className="pt-8 text-lg font-semibold uppercase text-primary group-hover:text-yellow lg:text-xl">
+                            {item.title}
+                          </h3>
+                          <p className="text-grey pt-4 text-sm group-hover:text-white md:text-base">
+                            {item.desc}
+                          </p>
+                        </div>
                       </div>
-                      <div className="block group-hover:hidden">
-                        <img
-                          src="/assets/img/icon-development-black.svg"
-                          alt="development icon"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <h3 className="pt-8 text-lg font-semibold uppercase text-primary group-hover:text-yellow lg:text-xl">
-                        WEB DEVELOPMENT
-                      </h3>
-                      <p className="text-grey pt-4 text-sm group-hover:text-white md:text-base">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="group rounded px-8 py-12 shadow hover:bg-primary">
-                    <div className="mx-auto h-24 w-24 text-center xl:h-28 xl:w-28">
-                      <div className="hidden group-hover:block">
-                        <img
-                          src="/assets/img/icon-content-white.svg"
-                          alt="content marketing icon"
-                        />
-                      </div>
-                      <div className="block group-hover:hidden">
-                        <img
-                          src="/assets/img/icon-content-black.svg"
-                          alt="content marketing icon"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <h3 className="pt-8 text-lg font-semibold uppercase text-primary group-hover:text-yellow lg:text-xl">
-                        Technical Writing
-                      </h3>
-                      <p className="text-grey pt-4 text-sm group-hover:text-white md:text-base">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="group rounded px-8 py-12 shadow hover:bg-primary">
-                    <div className="mx-auto h-24 w-24 text-center xl:h-28 xl:w-28">
-                      <div className="hidden group-hover:block">
-                        <img
-                          src="/assets/img/icon-mobile-white.svg"
-                          alt="Mobile Application icon"
-                        />
-                      </div>
-                      <div className="block group-hover:hidden">
-                        <img
-                          src="/assets/img/icon-mobile-black.svg"
-                          alt="Mobile Application icon"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <h3 className="pt-8 text-lg font-semibold uppercase text-primary group-hover:text-yellow lg:text-xl">
-                        Mobile Development
-                      </h3>
-                      <p className="text-grey pt-4 text-sm group-hover:text-white md:text-base">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="group rounded px-8 py-12 shadow hover:bg-primary">
-                    <div className="mx-auto h-24 w-24 text-center xl:h-28 xl:w-28">
-                      <div className="hidden group-hover:block">
-                        <img
-                          src="/assets/img/icon-email-white.svg"
-                          alt="Email Marketing icon"
-                        />
-                      </div>
-                      <div className="block group-hover:hidden">
-                        <img
-                          src="/assets/img/icon-email-black.svg"
-                          alt="Email Marketing icon"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <h3 className="pt-8 text-lg font-semibold uppercase text-primary group-hover:text-yellow lg:text-xl">
-                        Email Development
-                      </h3>
-                      <p className="text-grey pt-4 text-sm group-hover:text-white md:text-base">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="group rounded px-8 py-12 shadow hover:bg-primary">
-                    <div className="mx-auto h-24 w-24 text-center xl:h-28 xl:w-28">
-                      <div className="hidden group-hover:block">
-                        <img
-                          src="/assets/img/icon-design-white.svg"
-                          alt="Theme Design icon"
-                        />
-                      </div>
-                      <div className="block group-hover:hidden">
-                        <img
-                          src="/assets/img/icon-design-black.svg"
-                          alt="Theme Design icon"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <h3 className="pt-8 text-lg font-semibold uppercase text-primary group-hover:text-yellow lg:text-xl">
-                        Graphic Design
-                      </h3>
-                      <p className="text-grey pt-4 text-sm group-hover:text-white md:text-base">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="group rounded px-8 py-12 shadow hover:bg-primary">
-                    <div className="mx-auto h-24 w-24 text-center xl:h-28 xl:w-28">
-                      <div className="hidden group-hover:block">
-                        <img
-                          src="/assets/img/icon-graphics-white.svg"
-                          alt="Graphic Design icon"
-                        />
-                      </div>
-                      <div className="block group-hover:hidden">
-                        <img
-                          src="/assets/img/icon-graphics-black.svg"
-                          alt="Graphic Design icon"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <h3 className="pt-8 text-lg font-semibold uppercase text-primary group-hover:text-yellow lg:text-xl">
-                        Web Design
-                      </h3>
-                      <p className="text-grey pt-4 text-sm group-hover:text-white md:text-base">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit.
-                      </p>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
               </div>
 
               <div className="container py-16 md:py-20" id="portfolio">
                 <h2 className="text-center font-header text-4xl font-semibold uppercase text-primary sm:text-5xl lg:text-6xl">
-                  Check out my Portfolio
+                  Check out our Portfolio
                 </h2>
                 <h3 className="pt-6 text-center font-header text-xl font-medium text-black sm:text-2xl lg:text-3xl">
-                  Here's what I have done with the past
+                  Here's what we have done with the past
                 </h3>
 
                 <div className="mx-auto grid w-full grid-cols-1 gap-8 pt-12 sm:w-3/4 md:gap-10 lg:w-full lg:grid-cols-2">
@@ -1131,11 +961,20 @@ export async function getServerSideProps() {
   const blogs = await client.fetch(query);
   const profileQuery = '*[_type == "profile"][0]';
   const profile = await client.fetch(profileQuery);
+  const aboutQuery = '*[_type == "about"][0]';
+  const about = await client.fetch(aboutQuery);
+  const skillQuery = '*[_type == "skill"][0...4]';
+  const skill = await client.fetch(skillQuery);
+  const servicesQuery = '*[_type == "services"][0...6]';
+  const services = await client.fetch(servicesQuery);
 
   return {
     props: {
       blogs,
       profile,
+      about,
+      skill,
+      services,
     },
   };
 }
