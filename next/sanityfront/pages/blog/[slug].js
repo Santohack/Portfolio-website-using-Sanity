@@ -3,7 +3,7 @@ import PortableText from "react-portable-text";
 import { createClient } from "next-sanity";
 import { useRouter } from "next/router";
 
-const Post = ({ blog }) => {
+const Post = ({ blog, author }) => {
   const router = useRouter();
   const { slug } = router.query;
   console.log(blog);
@@ -322,7 +322,7 @@ const Post = ({ blog }) => {
                   </div>
                   <div className="pl-5">
                     <span className="block font-body text-xl font-bold text-grey-10">
-                      By Christy Smith
+                      By {author.title}
                     </span>
                     <span className="block pt-1 font-body text-xl font-bold text-grey-30">
                       {blog.created}
@@ -449,10 +449,13 @@ export const getServerSideProps = async function (context) {
 
   const query = `*[_type == "blog" && slug.current == '${slug}'][0]`;
   const blog = await client.fetch(query);
+  const authorQuery = `*[_type == "author"][0].title`;
+  const author = await client.fetch(authorQuery);
   console.log(blog);
   return {
     props: {
       blog,
+      author,
     },
   };
 };

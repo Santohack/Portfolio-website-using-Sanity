@@ -8,7 +8,7 @@ import { createClient } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import styles from "../styles/Home.module.css";
 
-export default function Home({ blogs }) {
+export default function Home({ blogs, profile }) {
   const client = createClient({
     projectId: "d9inkxl7",
     dataset: "production",
@@ -45,7 +45,7 @@ export default function Home({ blogs }) {
             content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           />
 
-          <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
+          <link rel="icon" type="image/png" href="/assets/img/favicon.ico" />
 
           <meta name="theme-color" content="#5540af" />
 
@@ -116,11 +116,9 @@ export default function Home({ blogs }) {
               <div className="container flex items-center justify-between">
                 <div>
                   <a href="/">
-                    <img
-                      src="/assets/img/logo.svg"
-                      className="w-24 lg:w-48"
-                      alt="logo image"
-                    />
+                    <h2 className="text-white text-3xl  logoSize font-bold">
+                      𝔻𝕎ℂ
+                    </h2>
                   </a>
                 </div>
                 <div className="hidden lg:block">
@@ -292,14 +290,14 @@ export default function Home({ blogs }) {
                   <div className="flex flex-col items-center justify-center lg:flex-row">
                     <div className="rounded-full border-8 border-primary shadow-xl">
                       <img
-                        src="/assets/img/blog-author.jpg"
+                        src={builder.image(profile.image).width(200).url()}
                         className="h-48 rounded-full sm:h-56"
                         alt="author"
                       />
                     </div>
                     <div className="pt-8 sm:pt-10 lg:pl-8 lg:pt-0">
                       <h1 className="text-center font-header text-4xl text-white sm:text-left sm:text-5xl md:text-6xl">
-                        Hello I'm Christy Smith!
+                        Hello I'm {profile.title}
                       </h1>
                       <div className="flex flex-col justify-center pt-3 sm:flex-row sm:pt-5 lg:justify-start">
                         <div className="flex items-center justify-center pl-0 sm:justify-start md:pl-1">
@@ -311,19 +309,19 @@ export default function Home({ blogs }) {
                           </div>
                         </div>
                         <div className="flex items-center justify-center pt-5 pl-2 sm:justify-start sm:pt-0">
-                          <a href="/">
+                          <a href={profile.fbLink}>
                             <i className="bx bxl-facebook-square text-2xl text-white hover:text-yellow"></i>
                           </a>
-                          <a href="/" className="pl-4">
+                          <a href={profile.twLink} className="pl-4">
                             <i className="bx bxl-twitter text-2xl text-white hover:text-yellow"></i>
                           </a>
                           <a href="/" className="pl-4">
                             <i className="bx bxl-dribbble text-2xl text-white hover:text-yellow"></i>
                           </a>
-                          <a href="/" className="pl-4">
+                          <a href={profile.lkLink} className="pl-4">
                             <i className="bx bxl-linkedin text-2xl text-white hover:text-yellow"></i>
                           </a>
-                          <a href="/" className="pl-4">
+                          <a href={profile.igLink} className="pl-4">
                             <i className="bx bxl-instagram text-2xl text-white hover:text-yellow"></i>
                           </a>
                         </div>
@@ -1131,9 +1129,13 @@ export async function getServerSideProps() {
 
   const query = '*[_type == "blog"][0...3]';
   const blogs = await client.fetch(query);
+  const profileQuery = '*[_type == "profile"][0]';
+  const profile = await client.fetch(profileQuery);
+
   return {
     props: {
       blogs,
+      profile,
     },
   };
 }
