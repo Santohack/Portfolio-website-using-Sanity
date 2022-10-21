@@ -7,11 +7,7 @@ const NavBar = () => {
         <div className="container flex items-center justify-between">
           <div className="mx-12">
             <a href="/">
-              <img
-                src="/assets/img/logo.svg"
-                className="w-24 lg:w-48"
-                alt="logo image"
-              />
+              <h2 class="text-white text-3xl logoSize font-bold">𝔻𝕎ℂ</h2>
             </a>
           </div>
           <div className="hidden lg:block">

@@ -3,7 +3,7 @@ import PortableText from "react-portable-text";
 import { createClient } from "next-sanity";
 import { useRouter } from "next/router";
 
-const Portfolio = ({ portfolio }) => {
+const Portfolio = ({ portfolio, profile }) => {
   const router = useRouter();
   const { slug } = router.query;
   console.log(portfolio);
@@ -19,12 +19,9 @@ const Portfolio = ({ portfolio }) => {
           name="viewport"
         />
 
-        <title>{portfolio.title}</title>
+        <title>{portfolio.title}|DWC </title>
 
-        <meta
-          property="og:title"
-          content="How to become a frontend developer | Atom Template"
-        />
+        <meta property="og:title" content="DWC | DevWebCity" />
 
         <meta property="og:locale" content="en_US" />
 
@@ -34,10 +31,10 @@ const Portfolio = ({ portfolio }) => {
 
         <meta
           name="description"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          content="DWC | DevWebCity|SFCC |Node.js | HTML | JavaScript"
         />
 
-        <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
+        <link rel="icon" type="image/png" href="/assets/img/favicon.ico" />
 
         <meta name="theme-color" content="#5540af" />
 
@@ -110,11 +107,7 @@ const Portfolio = ({ portfolio }) => {
           <div className="container flex items-center justify-between">
             <div>
               <a href="/">
-                <img
-                  src="/assets/img/logo.svg"
-                  className="w-24 lg:w-48"
-                  alt="logo image"
-                />
+                <h2 class="text-white text-3xl logoSize font-bold">𝔻𝕎ℂ</h2>
               </a>
             </div>
             <div className="hidden lg:block">
@@ -413,19 +406,19 @@ const Portfolio = ({ portfolio }) => {
               © Copyright 2022. All right reserved, 𝔻𝕎ℂ.
             </p>
             <div className="flex items-center justify-center pt-5 sm:justify-start sm:pt-0">
-              <a href="/">
+              <a href={profile.fbLink}>
                 <i className="bx bxl-facebook-square text-2xl text-white hover:text-yellow"></i>
               </a>
-              <a href="/" className="pl-4">
+              <a href={profile.twLink} className="pl-4">
                 <i className="bx bxl-twitter text-2xl text-white hover:text-yellow"></i>
               </a>
-              <a href="/" className="pl-4">
+              <a href={profile.twLink} className="pl-4">
                 <i className="bx bxl-dribbble text-2xl text-white hover:text-yellow"></i>
               </a>
-              <a href="/" className="pl-4">
+              <a href={profile.lkLink} className="pl-4">
                 <i className="bx bxl-linkedin text-2xl text-white hover:text-yellow"></i>
               </a>
-              <a href="/" className="pl-4">
+              <a href={profile.igLink} className="pl-4">
                 <i className="bx bxl-instagram text-2xl text-white hover:text-yellow"></i>
               </a>
             </div>
@@ -449,10 +442,13 @@ export const getServerSideProps = async function (context) {
 
   const query = `*[_type == "portfolio" && id.current == '${id}'][0]`;
   const portfolio = await client.fetch(query);
+  const profileQuery = '*[_type == "profile"][0]';
+  const profile = await client.fetch(profileQuery);
 
   return {
     props: {
       portfolio,
+      profile,
     },
   };
 };

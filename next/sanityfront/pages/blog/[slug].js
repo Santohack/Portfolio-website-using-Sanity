@@ -3,7 +3,7 @@ import PortableText from "react-portable-text";
 import { createClient } from "next-sanity";
 import { useRouter } from "next/router";
 
-const Post = ({ blog, author }) => {
+const Post = ({ blog, author, profile }) => {
   const router = useRouter();
   const { slug } = router.query;
   console.log(blog);
@@ -19,11 +19,11 @@ const Post = ({ blog, author }) => {
           name="viewport"
         />
 
-        <title>{blog.title}</title>
+        <title>{blog.title} |DWC</title>
 
         <meta
           property="og:title"
-          content="How to become a frontend developer | Atom Template"
+          content="DWC | SFCC |JavaScript |HTML | CSS | React.js"
         />
 
         <meta property="og:locale" content="en_US" />
@@ -34,14 +34,14 @@ const Post = ({ blog, author }) => {
 
         <meta
           name="description"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          content="DWC | SFCC |JavaScript |HTML | CSS | React.js."
         />
 
-        <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
+        <link rel="icon" type="image/png" href="/assets/img/favicon.ico" />
 
         <meta name="theme-color" content="#5540af" />
 
-        <meta property="og:site_name" content="Atom Template" />
+        <meta property="og:site_name" content="DWC" />
 
         <meta property="og:image" content="//assets/img/social.jpg" />
 
@@ -110,11 +110,7 @@ const Post = ({ blog, author }) => {
           <div className="container flex items-center justify-between">
             <div>
               <a href="/">
-                <img
-                  src="/assets/img/logo.svg"
-                  className="w-24 lg:w-48"
-                  alt="logo image"
-                />
+                <h2 class="text-white text-3xl logoSize font-bold">𝔻𝕎ℂ</h2>
               </a>
             </div>
             <div className="hidden lg:block">
@@ -410,22 +406,22 @@ const Post = ({ blog, author }) => {
         <div className="bg-primary">
           <div className="container flex flex-col justify-between py-6 sm:flex-row">
             <p className="text-center font-body text-white md:text-left">
-              © Copyright 2022. All right reserved, ATOM.
+              © Copyright 2022. All right reserved DWC.
             </p>
             <div className="flex items-center justify-center pt-5 sm:justify-start sm:pt-0">
-              <a href="/">
+              <a href={profile.fbLink}>
                 <i className="bx bxl-facebook-square text-2xl text-white hover:text-yellow"></i>
               </a>
-              <a href="/" className="pl-4">
+              <a href={profile.twLink} className="pl-4">
                 <i className="bx bxl-twitter text-2xl text-white hover:text-yellow"></i>
               </a>
-              <a href="/" className="pl-4">
+              <a href={profile.twLink} className="pl-4">
                 <i className="bx bxl-dribbble text-2xl text-white hover:text-yellow"></i>
               </a>
-              <a href="/" className="pl-4">
+              <a href={profile.lkLink} className="pl-4">
                 <i className="bx bxl-linkedin text-2xl text-white hover:text-yellow"></i>
               </a>
-              <a href="/" className="pl-4">
+              <a href={profile.igLink} className="pl-4">
                 <i className="bx bxl-instagram text-2xl text-white hover:text-yellow"></i>
               </a>
             </div>
@@ -451,11 +447,14 @@ export const getServerSideProps = async function (context) {
   const blog = await client.fetch(query);
   const authorQuery = `*[_type == "author"][0].title`;
   const author = await client.fetch(authorQuery);
+  const profileQuery = '*[_type == "profile"][0]';
+  const profile = await client.fetch(profileQuery);
   console.log(blog);
   return {
     props: {
       blog,
       author,
+      profile,
     },
   };
 };

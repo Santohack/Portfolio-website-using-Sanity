@@ -13,6 +13,7 @@ export default function Home({
   profile,
   about,
   skill,
+  clients,
   services,
   portfolio,
 }) {
@@ -483,44 +484,17 @@ export default function Home({
                       My latest clients
                     </h2>
                     <div className="flex flex-wrap items-center justify-center pt-4 sm:pt-4">
-                      <span className="m-8 block">
-                        <img
-                          src="/assets/img/logo-coca-cola.svg"
-                          alt="client logo"
-                          className="mx-auto block h-12 w-auto"
-                        />
-                      </span>
-                      <span className="m-8 block">
-                        <img
-                          src="/assets/img/logo-apple.svg"
-                          alt="client logo"
-                          className="mx-auto block h-12 w-auto"
-                        />
-                      </span>
-
-                      <span className="m-8 block">
-                        <img
-                          src="/assets/img/logo-netflix.svg"
-                          alt="client logo"
-                          className="mx-auto block h-12 w-auto"
-                        />
-                      </span>
-
-                      <span className="m-8 block">
-                        <img
-                          src="/assets/img/logo-amazon.svg"
-                          alt="client logo"
-                          className="mx-auto block h-12 w-auto"
-                        />
-                      </span>
-
-                      <span className="m-8 block">
-                        <img
-                          src="/assets/img/logo-stripe.svg"
-                          alt="client logo"
-                          className="mx-auto block h-12 w-auto"
-                        />
-                      </span>
+                      {clients.map((item) => {
+                        return (
+                          <span key={item.slug} className="m-8 block">
+                            <img
+                              src={builder.image(item.image).url()}
+                              alt="client logo"
+                              className="mx-auto block h-12 w-auto"
+                            />
+                          </span>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
@@ -905,22 +879,22 @@ export default function Home({
             <div className="bg-primary">
               <div className="container flex flex-col justify-between py-6 sm:flex-row">
                 <p className="text-center font-body text-white md:text-left">
-                  © Copyright 2022. All right reserved, ATOM.
+                  © Copyright 2022. All right reserved |𝔻𝕎ℂ
                 </p>
                 <div className="flex items-center justify-center pt-5 sm:justify-start sm:pt-0">
-                  <a href="/">
+                  <a href={profile.fbLink}>
                     <i className="bx bxl-facebook-square text-2xl text-white hover:text-yellow"></i>
                   </a>
-                  <a href="/" className="pl-4">
+                  <a href={profile.twLink} className="pl-4">
                     <i className="bx bxl-twitter text-2xl text-white hover:text-yellow"></i>
                   </a>
-                  <a href="/" className="pl-4">
+                  <a href={profile.twLink} className="pl-4">
                     <i className="bx bxl-dribbble text-2xl text-white hover:text-yellow"></i>
                   </a>
-                  <a href="/" className="pl-4">
+                  <a href={profile.lkLink} className="pl-4">
                     <i className="bx bxl-linkedin text-2xl text-white hover:text-yellow"></i>
                   </a>
-                  <a href="/" className="pl-4">
+                  <a href={profile.igLink} className="pl-4">
                     <i className="bx bxl-instagram text-2xl text-white hover:text-yellow"></i>
                   </a>
                 </div>
@@ -942,6 +916,8 @@ export async function getServerSideProps() {
 
   const query = '*[_type == "blog"][0...3]';
   const blogs = await client.fetch(query);
+  const clientQuery = '*[_type == "client"][0...6]';
+  const clients = await client.fetch(clientQuery);
   const portfolioQuery = '*[_type == "portfolio"][0...4]';
   const portfolio = await client.fetch(portfolioQuery);
   const profileQuery = '*[_type == "profile"][0]';
@@ -957,6 +933,7 @@ export async function getServerSideProps() {
     props: {
       blogs,
       profile,
+      clients,
       about,
       skill,
       services,

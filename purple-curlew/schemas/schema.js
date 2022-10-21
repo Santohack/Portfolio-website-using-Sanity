@@ -1,6 +1,7 @@
 import about from "./about";
 import author from "./author";
 import blog from "./blog";
+import client from "./client";
 import createSchema from "part:@sanity/base/schema-creator";
 import portfolio from "./portfolio";
 import profile from "./profile";
@@ -23,5 +24,6 @@ export default createSchema({
     skill,
     services,
     portfolio,
+    client,
   ]),
 });
