@@ -8,6 +8,7 @@ import profile from "./profile";
 import schemaTypes from "all:part:@sanity/base/schema-type";
 import services from "./services";
 import skill from "./skill";
+import statics from "./statics";
 
 // First, we must import the schema creator
 
@@ -25,5 +26,6 @@ export default createSchema({
     services,
     portfolio,
     client,
+    statics,
   ]),
 });

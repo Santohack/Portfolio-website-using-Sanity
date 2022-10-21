@@ -7,3 +7,6 @@ html {
   .logoSize{
   font-size: 4rem;
   }
+  .nav{
+    padding: inherit;
+  }

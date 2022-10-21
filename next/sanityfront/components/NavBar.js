@@ -3,8 +3,8 @@ import React from "react";
 const NavBar = () => {
   return (
     <div>
-      <div className="w-full z-50 top-0 py-3 sm:py-5  bg-[#513ea2] my-8  ">
-        <div className="container flex items-center justify-between">
+      <div className="w-full z-50 top-0 py-3 sm:py-5  bg-[#513ea2] my-5  ">
+        <div className="container flex items-center justify-between nav">
           <div className="mx-12">
             <a href="/">
               <h2 class="text-white text-3xl logoSize font-bold">𝔻𝕎ℂ</h2>
@@ -56,7 +56,7 @@ const NavBar = () => {
                 <span className="block h-0.5 w-full bg-transparent group-hover:bg-yellow"></span>
               </li>
 
-              <li className="group pl-6">
+              <li className=" hidden group pl-6">
                 <a
                   href="/#work"
                   className="cursor-pointe pt-0.5 font-header font-semibold uppercase text-white"

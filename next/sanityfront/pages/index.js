@@ -16,6 +16,7 @@ export default function Home({
   clients,
   services,
   portfolio,
+  statics,
 }) {
   const client = createClient({
     projectId: "d9inkxl7",
@@ -173,7 +174,7 @@ export default function Home({
                       <span className="block h-0.5 w-full bg-transparent group-hover:bg-yellow"></span>
                     </li>
 
-                    <li className="group pl-6">
+                    <li className=" hidden group pl-6">
                       <a href="#work">
                         <span className="cursor-pointer pt-0.5 font-header font-semibold uppercase text-white">
                           Work
@@ -500,7 +501,7 @@ export default function Home({
                 </div>
               </div>
 
-              <div className="container py-16 md:py-20" id="work">
+              <div className=" hidden container py-16 md:py-20" id="work">
                 <h2 className="text-center font-header text-4xl font-semibold uppercase text-primary sm:text-5xl lg:text-6xl">
                   My work experience
                 </h2>
@@ -654,7 +655,7 @@ export default function Home({
                         </div>
                         <div className="pt-5 md:pl-5 md:pt-0">
                           <h1 className="font-body text-2xl font-bold text-primary md:text-4xl">
-                            12
+                            {statics.fProject}
                           </h1>
                           <h4 className="text-grey-dark font-header text-base font-medium leading-loose md:text-xl">
                             Finished Projects
@@ -672,7 +673,7 @@ export default function Home({
                         </div>
                         <div className="pt-5 md:pl-5 md:pt-0">
                           <h1 className="font-body text-2xl font-bold text-primary md:text-4xl">
-                            3
+                            {statics.awardWon}
                           </h1>
                           <h4 className="text-grey-dark font-header text-base font-medium leading-loose md:text-xl">
                             Awards Won
@@ -690,7 +691,7 @@ export default function Home({
                         </div>
                         <div className="pt-5 md:pl-5 md:pt-0">
                           <h1 className="font-body text-2xl font-bold text-primary md:text-4xl">
-                            8
+                            {statics.happyClient}
                           </h1>
                           <h4 className="text-grey-dark font-header text-base font-medium leading-loose md:text-xl">
                             Happy Clients
@@ -708,7 +709,7 @@ export default function Home({
                         </div>
                         <div className="pt-5 md:pl-5 md:pt-0">
                           <h1 className="font-body text-2xl font-bold text-primary md:text-4xl">
-                            99
+                            {statics.bug}
                           </h1>
                           <h4 className="text-grey-dark font-header text-base font-medium leading-loose md:text-xl">
                             Bugs Fixed
@@ -916,6 +917,8 @@ export async function getServerSideProps() {
 
   const query = '*[_type == "blog"][0...3]';
   const blogs = await client.fetch(query);
+  const staticsQuery = '*[_type == "statics"][0]';
+  const statics = await client.fetch(staticsQuery);
   const clientQuery = '*[_type == "client"][0...6]';
   const clients = await client.fetch(clientQuery);
   const portfolioQuery = '*[_type == "portfolio"][0...4]';
@@ -928,7 +931,7 @@ export async function getServerSideProps() {
   const skill = await client.fetch(skillQuery);
   const servicesQuery = '*[_type == "services"][0...6]';
   const services = await client.fetch(servicesQuery);
-
+  console.log(statics);
   return {
     props: {
       blogs,
@@ -938,6 +941,7 @@ export async function getServerSideProps() {
       skill,
       services,
       portfolio,
+      statics,
     },
   };
 }
