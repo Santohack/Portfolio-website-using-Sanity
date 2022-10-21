@@ -8,7 +8,14 @@ import { createClient } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import styles from "../styles/Home.module.css";
 
-export default function Home({ blogs, profile, about, skill, services }) {
+export default function Home({
+  blogs,
+  profile,
+  about,
+  skill,
+  services,
+  portfolio,
+}) {
   const client = createClient({
     projectId: "d9inkxl7",
     dataset: "production",
@@ -414,7 +421,7 @@ export default function Home({ blogs, profile, about, skill, services }) {
                         <div className="mx-auto h-24 w-24 text-center xl:h-28 xl:w-28">
                           <div className="hidden group-hover:block">
                             <img
-                              src={builder.image(item.image).width(200).url()}
+                              src={builder.image(item.image).url()}
                               alt="development icon"
                             />
                           </div>
@@ -448,46 +455,24 @@ export default function Home({ blogs, profile, about, skill, services }) {
                 </h3>
 
                 <div className="mx-auto grid w-full grid-cols-1 gap-8 pt-12 sm:w-3/4 md:gap-10 lg:w-full lg:grid-cols-2">
-                  <a
-                    href="/"
-                    className="mx-auto transform transition-all hover:scale-105 md:mx-0"
-                  >
-                    <img
-                      src="/assets/img/portfolio-apple.jpeg"
-                      className="w-full shadow"
-                      alt="portfolio image"
-                    />
-                  </a>
-                  <a
-                    href="/"
-                    className="mx-auto transform transition-all hover:scale-105 md:mx-0"
-                  >
-                    <img
-                      src="/assets/img/portfolio-stripe.jpeg"
-                      className="w-full shadow"
-                      alt="portfolio image"
-                    />
-                  </a>
-                  <a
-                    href="/"
-                    className="mx-auto transform transition-all hover:scale-105 md:mx-0"
-                  >
-                    <img
-                      src="/assets/img/portfolio-fedex.jpeg"
-                      className="w-full shadow"
-                      alt="portfolio image"
-                    />
-                  </a>
-                  <a
-                    href="/"
-                    className="mx-auto transform transition-all hover:scale-105 md:mx-0"
-                  >
-                    <img
-                      src="/assets/img/portfolio-microsoft.jpeg"
-                      className="w-full shadow"
-                      alt="portfolio image"
-                    />
-                  </a>
+                  {portfolio.map((item) => {
+                    return (
+                      <a
+                        key={item.id}
+                        href={"/portfolio/" + item.id.current}
+                        className="mx-auto transform transition-all hover:scale-105 md:mx-0"
+                      >
+                        <img
+                          src={builder.image(item.portImg).url()}
+                          className="w-full shadow"
+                          alt="portfolio image"
+                        />
+                        <span class="block font-body text-xl font-semibold text-primary text-center py-3 uppercase">
+                          {item.title}
+                        </span>
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -782,10 +767,8 @@ export default function Home({ blogs, profile, about, skill, services }) {
                             <div
                               style={{
                                 backgroundImage: `url(${
-                                  builder
-                                    .image(item.blogImg)
-                                    .width(200)
-                                    .url() || "/assets/img/post-02.png"
+                                  builder.image(item.blogImg).url() ||
+                                  "/assets/img/post-02.png"
                                 })`,
                               }}
                               className="group relative h-72 bg-cover bg-center bg-no-repeat sm:h-84 lg:h-64 xl:h-72"
@@ -959,6 +942,8 @@ export async function getServerSideProps() {
 
   const query = '*[_type == "blog"][0...3]';
   const blogs = await client.fetch(query);
+  const portfolioQuery = '*[_type == "portfolio"][0...4]';
+  const portfolio = await client.fetch(portfolioQuery);
   const profileQuery = '*[_type == "profile"][0]';
   const profile = await client.fetch(profileQuery);
   const aboutQuery = '*[_type == "about"][0]';
@@ -975,6 +960,7 @@ export async function getServerSideProps() {
       about,
       skill,
       services,
+      portfolio,
     },
   };
 }
