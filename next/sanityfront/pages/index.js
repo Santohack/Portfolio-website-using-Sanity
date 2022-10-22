@@ -389,7 +389,7 @@ export default function Home({
                               {item.title}
                             </h4>
                             <h3 className="font-body text-3xl font-bold text-primary">
-                              {item.efficiency}
+                              {item.efficiency} %
                             </h3>
                           </div>
                           <div className="mt-2 h-3 w-full rounded-full bg-lila">
