@@ -2,6 +2,7 @@ import about from "./about";
 import author from "./author";
 import blog from "./blog";
 import client from "./client";
+import contact from "./contact";
 import createSchema from "part:@sanity/base/schema-creator";
 import portfolio from "./portfolio";
 import profile from "./profile";
@@ -26,6 +27,7 @@ export default createSchema({
     services,
     portfolio,
     client,
+    contact,
     statics,
   ]),
 });

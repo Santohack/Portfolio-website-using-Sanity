@@ -13,6 +13,7 @@ export default function Home({
   profile,
   about,
   skill,
+  contact,
   clients,
   services,
   portfolio,
@@ -777,7 +778,7 @@ export default function Home({
                   Have Any Questions?
                 </h4>
                 <div className="mx-auto w-full pt-5 text-center sm:w-2/3 lg:pt-6">
-                  <p className="font-body text-grey-10">
+                  <p className=" hidden font-body text-grey-10">
                     Lorem ipsum dolor sit amet consectetur adipiscing elit
                     hendrerit condimentum turpis nisl sem, viverra habitasse
                     urna ante lobortis fermentum accumsan. Viverra habitasse
@@ -819,9 +820,9 @@ export default function Home({
                         My Phone
                       </p>
                     </div>
-                    <p className="pt-2 text-left font-body font-bold text-primary lg:text-lg">
-                      (+881) 111 222 333
-                    </p>
+                    <a className="cursor-pointer pt-2 text-left font-body font-bold text-primary lg:text-lg">
+                      {contact.phone}
+                    </a>
                   </div>
                   <div className="w-full border-l-2 border-t-0 border-r-2 border-b-2 border-grey-60 px-6 py-6 sm:py-8 lg:w-1/3 lg:border-l-0 lg:border-t-2">
                     <div className="flex items-center">
@@ -830,49 +831,21 @@ export default function Home({
                         My Email
                       </p>
                     </div>
-                    <p className="pt-2 text-left font-body font-bold text-primary lg:text-lg">
-                      name@mydomain.com
-                    </p>
+                    <a className="cursor-pointer pt-2 text-left font-body font-bold text-primary lg:text-lg">
+                      {contact.email}
+                    </a>
                   </div>
                   <div className="w-full border-l-2 border-t-0 border-r-2 border-b-2 border-grey-60 px-6 py-6 sm:py-8 lg:w-1/3 lg:border-l-0 lg:border-t-2">
                     <div className="flex items-center">
                       <i className="bx bx-map text-2xl text-grey-40"></i>
-                      <p className="pl-2 font-body font-bold uppercase text-grey-40 lg:text-lg">
+                      <a className="pl-2 font-body font-bold uppercase text-grey-40 lg:text-lg">
                         My Address
-                      </p>
+                      </a>
                     </div>
                     <p className="pt-2 text-left font-body font-bold text-primary lg:text-lg">
-                      123 New York D Block 1100, 2011 USA
+                      {contact.address}
                     </p>
                   </div>
-                </div>
-              </div>
-
-              <div
-                className="h-72 bg-cover bg-center bg-no-repeat sm:h-64 md:h-72 lg:h-96"
-                style={{ backgroundImage: "url(/assets/img/map.png)" }}
-              ></div>
-
-              <div
-                className="relative bg-primary bg-cover bg-center bg-no-repeat py-16 bg-blend-multiply lg:py-24"
-                style={{ backgroundImage: "url(/assets/img/bg-cta.jpg)" }}
-              >
-                <div className="container relative z-30">
-                  <h3 className="text-center font-header text-3xl uppercase leading-tight tracking-wide text-white sm:text-4xl lg:text-5xl">
-                    Keep <span className="font-bold">up-to-date</span> <br />
-                    with what I'm up to
-                  </h3>
-                  <form className="mt-6 flex flex-col justify-center sm:flex-row">
-                    <input
-                      className="w-full rounded px-4 py-3 font-body text-black sm:w-2/5 sm:py-4 lg:w-1/3"
-                      type="text"
-                      id="email"
-                      placeholder="Give me your Email"
-                    />
-                    <button className="mt-2 rounded bg-yellow px-8 py-3 font-body text-base font-bold uppercase text-primary transition-colors hover:bg-primary hover:text-white focus:border-transparent focus:outline-none focus:ring focus:ring-yellow sm:ml-2 sm:mt-0 sm:py-4 md:text-lg">
-                      Join the club
-                    </button>
-                  </form>
                 </div>
               </div>
             </div>
@@ -929,6 +902,8 @@ export async function getServerSideProps() {
   const about = await client.fetch(aboutQuery);
   const skillQuery = '*[_type == "skill"][0...4]';
   const skill = await client.fetch(skillQuery);
+  const contactQuery = '*[_type == "contact"][0]';
+  const contact = await client.fetch(contactQuery);
   const servicesQuery = '*[_type == "services"][0...6]';
   const services = await client.fetch(servicesQuery);
   console.log(statics);
@@ -938,6 +913,7 @@ export async function getServerSideProps() {
       profile,
       clients,
       about,
+      contact,
       skill,
       services,
       portfolio,
