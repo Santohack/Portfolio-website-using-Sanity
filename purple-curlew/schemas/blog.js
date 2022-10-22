@@ -77,9 +77,9 @@ export default {
       ],
     },
     {
-      title: "Created at",
+      title: "Release date",
       name: "created",
-      type: "datetime",
+      type: "date",
     },
     {
       name: "author",

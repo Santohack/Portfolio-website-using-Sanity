@@ -33,6 +33,11 @@ export default {
       type: "string",
       title: "twitter Url",
     },
+    {
+      name: "drLink",
+      type: "string",
+      title: "Dribbble Url",
+    },
 
     {
       name: "image",

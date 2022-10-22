@@ -1,9 +1,16 @@
 import Head from "next/head";
 import PortableText from "react-portable-text";
 import { createClient } from "next-sanity";
+import imageUrlBuilder from "@sanity/image-url";
 import { useRouter } from "next/router";
 
 const Post = ({ blog, author, profile }) => {
+  const client = createClient({
+    projectId: "d9inkxl7",
+    dataset: "production",
+    useCdn: false,
+  });
+  const builder = imageUrlBuilder(client);
   const router = useRouter();
   const { slug } = router.query;
   console.log(blog);
@@ -311,7 +318,7 @@ const Post = ({ blog, author, profile }) => {
                 <div className="flex items-center pt-5 md:pt-10">
                   <div>
                     <img
-                      src="/assets/img/blog-author.jpg"
+                      src={builder.image(author.image).url()}
                       className="h-20 w-20 rounded-full border-2 border-grey-70 shadow"
                       alt="author image"
                     />
@@ -320,6 +327,7 @@ const Post = ({ blog, author, profile }) => {
                     <span className="block font-body text-xl font-bold text-grey-10">
                       By {author.title}
                     </span>
+
                     <span className="block pt-1 font-body text-xl font-bold text-grey-30">
                       {blog.created}
                     </span>
@@ -364,36 +372,36 @@ const Post = ({ blog, author, profile }) => {
               <div className="flex flex-col items-center border-t border-lila py-12 pt-12 md:flex-row md:items-start xl:pb-20">
                 <div className="w-3/4 sm:w-2/5 lg:w-1/4 xl:w-1/5">
                   <img
-                    src="/assets/img/blog-author.jpg"
+                    src={builder
+                      .image(author.image)
+                      .width(200)
+                      .height(160)
+                      .url()}
                     className="rounded-full shadow"
                     alt="author image"
                   />
                 </div>
                 <div className="ml-0 text-center md:ml-10 md:w-5/6 md:text-left">
                   <h3 className="pt-10 font-body text-2xl font-bold text-secondary md:pt-0">
-                    Christy Smith
+                    {author.title}
                   </h3>
                   <p className="pt-5 font-body text-lg leading-8 text-secondary sm:leading-9 md:text-xl md:leading-9 lg:leading-9 xl:leading-9">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit.
+                    {author.about}
                   </p>
                   <div className="flex items-center justify-center pt-5 md:justify-start">
-                    <a href="/">
+                    <a href={profile.fbLink}>
                       <i className="bx bxl-facebook-square text-2xl text-primary hover:text-yellow"></i>
                     </a>
-                    <a href="/" className="pl-4">
+                    <a href={profile.twLink} className="pl-4">
                       <i className="bx bxl-twitter text-2xl text-primary hover:text-yellow"></i>
                     </a>
-                    <a href="/" className="pl-4">
+                    <a href={profile.drLink} className="pl-4">
                       <i className="bx bxl-dribbble text-2xl text-primary hover:text-yellow"></i>
                     </a>
-                    <a href="/" className="pl-4">
+                    <a href={profile.lkLink} className="pl-4">
                       <i className="bx bxl-linkedin text-2xl text-primary hover:text-yellow"></i>
                     </a>
-                    <a href="/" className="pl-4">
+                    <a href={profile.igLink} className="pl-4">
                       <i className="bx bxl-instagram text-2xl text-primary hover:text-yellow"></i>
                     </a>
                   </div>
@@ -415,7 +423,7 @@ const Post = ({ blog, author, profile }) => {
               <a href={profile.twLink} className="pl-4">
                 <i className="bx bxl-twitter text-2xl text-white hover:text-yellow"></i>
               </a>
-              <a href={profile.twLink} className="pl-4">
+              <a href={profile.drLink} className="pl-4">
                 <i className="bx bxl-dribbble text-2xl text-white hover:text-yellow"></i>
               </a>
               <a href={profile.lkLink} className="pl-4">
@@ -443,13 +451,13 @@ export const getServerSideProps = async function (context) {
     useCdn: false,
   });
 
-  const query = `*[_type == "blog" && slug.current == '${slug}'][0]`;
+  const query = `*[_type == "blog"  && slug.current == '${slug}'][0]`;
   const blog = await client.fetch(query);
-  const authorQuery = `*[_type == "author"][0].title`;
+  const authorQuery = `*[_type == 'author'][1]`;
   const author = await client.fetch(authorQuery);
   const profileQuery = '*[_type == "profile"][0]';
   const profile = await client.fetch(profileQuery);
-  console.log(blog);
+  console.log(author);
   return {
     props: {
       blog,

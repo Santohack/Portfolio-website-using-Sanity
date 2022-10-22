@@ -8,6 +8,7 @@ export default {
       type: "string",
       title: "Title",
     },
+
     {
       name: "about",
       type: "string",
