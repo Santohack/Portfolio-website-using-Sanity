@@ -15,7 +15,7 @@ export default {
       title: "About",
     },
     {
-      name: "image",
+      name: "img",
       type: "image",
       title: "Image",
       options: {

@@ -4,7 +4,7 @@ import { createClient } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import { useRouter } from "next/router";
 
-const Portfolio = ({ portfolio, profile,author }) => {
+const Portfolio = ({ portfolio, profile, author }) => {
   const client = createClient({
     projectId: "d9inkxl7",
     dataset: "production",
@@ -315,7 +315,7 @@ const Portfolio = ({ portfolio, profile,author }) => {
                 <div className="flex items-center pt-5 md:pt-10">
                   <div>
                     <img
-                      src={{builder.image(author.image).url()}}
+                      src={builder.image(author.img).url()}
                       className="h-20 w-20 rounded-full border-2 border-grey-70 shadow"
                       alt="author image"
                     />
@@ -368,14 +368,14 @@ const Portfolio = ({ portfolio, profile,author }) => {
               <div className="flex flex-col items-center border-t border-lila py-12 pt-12 md:flex-row md:items-start xl:pb-20">
                 <div className="w-3/4 sm:w-2/5 lg:w-1/4 xl:w-1/5">
                   <img
-                    src={builder.image(author.image).width(200).height(160)}.url()}
+                    src={builder.image(author.img).width(200).height(160).url()}
                     className="rounded-full shadow"
                     alt="author image"
                   />
                 </div>
                 <div className="ml-0 text-center md:ml-10 md:w-5/6 md:text-left">
                   <h3 className="pt-10 font-body text-2xl font-bold text-secondary md:pt-0">
-                  {author.title}
+                    {author.title}
                   </h3>
                   <p className="pt-5 font-body text-lg leading-8 text-secondary sm:leading-9 md:text-xl md:leading-9 lg:leading-9 xl:leading-9">
                     {author.about}
@@ -397,7 +397,6 @@ const Portfolio = ({ portfolio, profile,author }) => {
                       <i className="bx bxl-instagram text-2xl text-primary hover:text-yellow"></i>
                     </a>
                   </div>
-                  
                 </div>
               </div>
             </div>
@@ -455,7 +454,7 @@ export const getServerSideProps = async function (context) {
     props: {
       portfolio,
       profile,
-      author
+      author,
     },
   };
 };

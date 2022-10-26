@@ -318,7 +318,7 @@ const Post = ({ blog, author, profile }) => {
                 <div className="flex items-center pt-5 md:pt-10">
                   <div>
                     <img
-                      src={builder.image(author.image).url()}
+                      src={builder.image(author.img).url()}
                       className="h-20 w-20 rounded-full border-2 border-grey-70 shadow"
                       alt="author image"
                     />
@@ -372,11 +372,7 @@ const Post = ({ blog, author, profile }) => {
               <div className="flex flex-col items-center border-t border-lila py-12 pt-12 md:flex-row md:items-start xl:pb-20">
                 <div className="w-3/4 sm:w-2/5 lg:w-1/4 xl:w-1/5">
                   <img
-                    src={builder
-                      .image(author.image)
-                      .width(200)
-                      .height(160)
-                      .url()}
+                    src={builder.image(author.img).width(200).height(160).url()}
                     className="rounded-full shadow"
                     alt="author image"
                   />
